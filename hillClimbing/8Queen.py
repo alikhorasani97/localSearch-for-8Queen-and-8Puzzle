@@ -53,27 +53,62 @@ class board:
         for i in range(8):
             for j in range(8):
                 if (self.boardvar[i][j] == "Queen"):
-                    #move up Queen 1cell
-                    if(i>0 and self.boardvar[i-1][j] == "Empty"):
-                        boardtmp = copy.deepcopy(self.boardvar)
-                        boardtmp[i-1][j] = "Queen"
-                        boardtmp[i][j] = "Empty"
-                        neighbor.append(boardtmp)
-                        #if(cmpCost(boardtmp) < lowestCost):
 
                     # move upright Queen 1cell
                     if (i > 0 and j<7 and self.boardvar[i - 1][j + 1] == "Empty"):
                         boardtmp = copy.deepcopy(self.boardvar)
                         boardtmp[i - 1][j + 1] = "Queen"
                         boardtmp[i][j] = "Empty"
-                    # move up Queen 1cell
-                    if (i > 0 and self.boardvar[i - 1][j] == "Empty"):
+                        neighbor.append(boardtmp)
+
+                    #move up Queen 1cell
+                    if(i>0 and self.boardvar[i-1][j] == "Empty"):
                         boardtmp = copy.deepcopy(self.boardvar)
-                        boardtmp[i - 1][j] = "Queen"
+                        boardtmp[i-1][j] = "Queen"
                         boardtmp[i][j] = "Empty"
+                        neighbor.append(boardtmp)
 
+                    # move upleft Queen 1cell
+                    if (i > 0 and j>0 and self.boardvar[i - 1][j - 1] == "Empty"):
+                        boardtmp = copy.deepcopy(self.boardvar)
+                        boardtmp[i - 1][j - 1] = "Queen"
+                        boardtmp[i][j] = "Empty"
+                        neighbor.append(boardtmp)
 
+                    # move left Queen 1cell
+                    if (j > 0 and self.boardvar[i][j - 1] == "Empty"):
+                        boardtmp = copy.deepcopy(self.boardvar)
+                        boardtmp[i][j - 1] = "Queen"
+                        boardtmp[i][j] = "Empty"
+                        neighbor.append(boardtmp)
 
+                    # move downleft Queen 1cell
+                    if (i < 7 and j > 0 and self.boardvar[i + 1][j - 1] == "Empty"):
+                        boardtmp = copy.deepcopy(self.boardvar)
+                        boardtmp[i + 1][j - 1] = "Queen"
+                        boardtmp[i][j] = "Empty"
+                        neighbor.append(boardtmp)
+
+                    # move down Queen 1cell
+                    if (i < 7 and self.boardvar[i + 1][j] == "Empty"):
+                        boardtmp = copy.deepcopy(self.boardvar)
+                        boardtmp[i + 1][j] = "Queen"
+                        boardtmp[i][j] = "Empty"
+                        neighbor.append(boardtmp)
+
+                    # move downright Queen 1cell
+                    if (i < 7 and j < 7 and self.boardvar[i + 1][j + 1] == "Empty"):
+                        boardtmp = copy.deepcopy(self.boardvar)
+                        boardtmp[i + 1][j + 1] = "Queen"
+                        boardtmp[i][j] = "Empty"
+                        neighbor.append(boardtmp)
+
+                    # move right Queen 1cell
+                    if (j < 7 and self.boardvar[i][j + 1] == "Empty"):
+                        boardtmp = copy.deepcopy(self.boardvar)
+                        boardtmp[i][j + 1] = "Queen"
+                        boardtmp[i][j] = "Empty"
+                        neighbor.append(boardtmp)
 """
     def cmpCost(self):
         cost = 0
