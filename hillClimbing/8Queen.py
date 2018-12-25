@@ -1,12 +1,13 @@
-#hill climbing algorithm for 8-Queen
+# hill climbing algorithm for 8-Queen
 
 import random
 import copy
 
+
 class board:
 
-    def __init__(self,initialBoard = None):#initialBoard must be 2d list
-        if(initialBoard == None):
+    def __init__(self, initialBoard=None):  # initialBoard must be 2d list
+        if (initialBoard == None):
             self.boardvar = [["Empty" for j in range(8)] for i in range(8)]
             for i in range(8):
                 x = random.randint(0, 7)
@@ -15,35 +16,33 @@ class board:
         else:
             self.setboard(initialBoard)
 
-
-    def setboard(self,nextboard):
+    def setboard(self, nextboard):
         for i in range(8):
             for j in range(8):
                 self.boardvar[i][j] = nextboard[i][j]
 
-
-    def setindex(self,x,y,value):
+    def setindex(self, x, y, value):
         self.boardvar[x][y] = value
 
     def getboard(self):
         return self.boardvar
 
-    def getindex(self,x,y):
+    def getindex(self, x, y):
         return self.boardvar[x][y]
 
     def isGoal(self):
         for i in range(8):
             for j in range(8):
-                if(self.boardvar[i][j] == "Queen"):
+                if (self.boardvar[i][j] == "Queen"):
                     for k in range(8):
-                        if(self.boardvar[k][j] == "Queen" and k != i):
+                        if (self.boardvar[k][j] == "Queen" and k != i):
                             return False
-                        if(self.boardvar[i][k] == "Queen" and k != j):
+                        if (self.boardvar[i][k] == "Queen" and k != j):
                             return False
-                        if(k < 8-max(i,j) and k>0):
-                            if(self.boardvar[i+k][j+k] == "Queen"):
+                        if (k < 8 - max(i, j) and k > 0):
+                            if (self.boardvar[i + k][j + k] == "Queen"):
                                 return False
-                        if(k < min(i,j) and k>0):
+                        if (k < min(i, j) and k > 0):
                             if (self.boardvar[i - k][j - k] == "Queen"):
                                 return False
         return True
@@ -57,21 +56,21 @@ class board:
                 if (self.boardvar[i][j] == "Queen"):
 
                     # move upright Queen 1cell
-                    if (i > 0 and j<7 and self.boardvar[i - 1][j + 1] == "Empty"):
+                    if (i > 0 and j < 7 and self.boardvar[i - 1][j + 1] == "Empty"):
                         boardtmp = copy.deepcopy(self.getboard())
                         boardtmp[i - 1][j + 1] = "Queen"
                         boardtmp[i][j] = "Empty"
                         neighbor.append(boardtmp)
 
-                    #move up Queen 1cell
-                    if(i>0 and self.boardvar[i-1][j] == "Empty"):
+                    # move up Queen 1cell
+                    if (i > 0 and self.boardvar[i - 1][j] == "Empty"):
                         boardtmp = copy.deepcopy(self.getboard())
-                        boardtmp[i-1][j] = "Queen"
+                        boardtmp[i - 1][j] = "Queen"
                         boardtmp[i][j] = "Empty"
                         neighbor.append(boardtmp)
 
                     # move upleft Queen 1cell
-                    if (i > 0 and j>0 and self.boardvar[i - 1][j - 1] == "Empty"):
+                    if (i > 0 and j > 0 and self.boardvar[i - 1][j - 1] == "Empty"):
                         boardtmp = copy.deepcopy(self.getboard())
                         boardtmp[i - 1][j - 1] = "Queen"
                         boardtmp[i][j] = "Empty"
@@ -112,6 +111,8 @@ class board:
                         boardtmp[i][j] = "Empty"
                         neighbor.append(boardtmp)
         return neighbor
+
+
 """
     def cmpCost(self):
         cost = 0
@@ -132,12 +133,12 @@ class board:
         return cost
 """
 
-
 """
     def isQueenBetween2Point(self,Qx1,Qy1,Qx2,Qy2):
         if(Qx1 == Qx2)#2Queen are in the same column
-            
+
 """
+
 
 def cmpCost(boardV):
     cost = 0
@@ -157,31 +158,26 @@ def cmpCost(boardV):
                             cost += 1
     return cost
 
-#search algorithms
+
+# search algorithms
 
 
-def stepAscent(boardv = None):#if boardv be None then randomly create a board for initial board
-    tempboard = board(boardv)#intial the first board in init board func
-    while(True):
+def stepAscent(boardv=None):  # if boardv be None then randomly create a board for initial board
+    tempboard = board(boardv)  # intial the first board in init board func
+    while (True):
         neighbors = tempboard.findNeighbor()
         bestnibr = tempboard.getboard()
         lowestcost = cmpCost(tempboard.getboard())
-        while(neighbors.__len__() > 0 ):
+        while (neighbors.__len__() > 0):
             nibrboard = neighbors.pop()
             nibrcost = cmpCost(nibrboard)
-            if( nibrcost < lowestcost):
+            if (nibrcost < lowestcost):
                 bestnibr = nibrboard
                 lowestcost = nibrcost
-        if(bestnibr == tempboard.getboard()):
+        if (bestnibr == tempboard.getboard()):
             break
         tempboard.setboard(bestnibr)
     return tempboard.getboard()
-
-
-
-
-
-
 
 
 stepAscent()
@@ -189,4 +185,3 @@ stepAscent()
 print(myboard.getboard())
 print(myboard.isGoal())
 """
-
