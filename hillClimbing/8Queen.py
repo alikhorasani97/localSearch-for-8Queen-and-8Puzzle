@@ -10,9 +10,12 @@ class board:
         if (initialBoard == None):
             self.boardvar = [["Empty" for j in range(8)] for i in range(8)]
             for i in range(8):
-                x = random.randint(0, 7)
-                y = random.randint(0, 7)
-                self.boardvar[x][y] = "Queen"
+                while(True):
+                    x = random.randint(0, 7)
+                    y = random.randint(0, 7)
+                    if(self.boardvar[x][y] == "Empty"):
+                        self.boardvar[x][y] = "Queen"
+                        break
         else:
             self.setboard(initialBoard)
 
@@ -142,6 +145,9 @@ class board:
 
 def cmpCost(boardV):
     cost = 0
+    string = """ qx1 : %d   qy1 : %d  
+                 qx2 : %d   qy2 : %d
+    """,
     for i in range(8):
         for j in range(8):
             if (boardV[i][j] == "Queen"):
@@ -150,11 +156,17 @@ def cmpCost(boardV):
                         cost += 1
                     if (boardV[i][k] == "Queen" and k != j):
                         cost += 1
-                    if (k < 8 - max(i, j) and k > 0):
+                    if (k < min(8 - i,8 - j) and k > 0):
                         if (boardV[i + k][j + k] == "Queen"):
                             cost += 1
-                    if (k < min(i, j) and k > 0):
+                    if (k < min(i+1, j+1) and k > 0):
                         if (boardV[i - k][j - k] == "Queen"):
+                            cost += 1
+                    if (k < min(i+1, 8-j) and k > 0):
+                        if (boardV[i - k][j + k] == "Queen"):
+                            cost += 1
+                    if (k < min(8-i, j+1) and k > 0):
+                        if (boardV[i + k][j - k] == "Queen"):
                             cost += 1
     return cost
 
@@ -180,7 +192,29 @@ def stepAscent(boardv=None):  # if boardv be None then randomly create a board f
     return tempboard.getboard()
 
 
-stepAscent()
+def stochastic(boardv = None):
+    tempboard = board(boardv)
+    while (True):
+        neighbors = tempboard.findNeighbor()
+        bestnibr = tempboard.getboard()
+        print(tempboard.getboard())
+
+        lowestcost = cmpCost(tempboard.getboard())
+        print(lowestcost)
+        while (neighbors.__len__() > 0):
+            nibrboard = neighbors.pop()
+            nibrcost = cmpCost(nibrboard)
+            if (nibrcost < lowestcost):
+                bestnibr = nibrboard
+                lowestcost = nibrcost
+                break
+        if (bestnibr == tempboard.getboard()):
+            break
+        tempboard.setboard(bestnibr)
+    return tempboard.getboard()
+
+
+stochastic()
 """myboard = board()
 print(myboard.getboard())
 print(myboard.isGoal())
