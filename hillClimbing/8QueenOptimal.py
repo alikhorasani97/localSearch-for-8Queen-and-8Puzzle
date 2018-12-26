@@ -11,6 +11,7 @@ class board:
             self.boardvar = [i for i in range(8)]
             random.shuffle(self.boardvar)
         else:
+            self.boardvar = [i for i in range(8)]
             self.setboard(initialBoard)
 
     def setboard(self, nextboard):
@@ -42,6 +43,19 @@ class board:
                 boardtmp = swapElements(boardtmp,i,backward)
                 neighbor.append(boardtmp)
         return neighbor
+
+    def generateStandardBoard(self):
+        self.standardboard = [["Empty" for j in range(8)]for i in range(8)]
+        for i in range(8):
+            self.standardboard[i][self.boardvar[i]] = "Queen"
+
+    def printboard(self):
+        self.generateStandardBoard()
+        bt = self.standardboard
+        string = ""
+        for i in range(8):
+            string += """ %s | %s | %s | %s | %s | %s | %s | %s \n"""%(bt[i][0],bt[i][1],bt[i][2],bt[i][3],bt[i][4],bt[i][5],bt[i][6],bt[i][7])
+        print(string)
 
 
 def cmpCost(boardv):
@@ -77,6 +91,10 @@ def stepAscent(boardv=None):  # if boardv be None then randomly create a board f
         tempboard.setboard(bestnibr)
     return tempboard.getboard()
 
-boardv = stepAscent()
-print(boardv)
-print(cmpCost(boardv))
+boardv = board()
+boardv.printboard()
+suboard=stepAscent(boardv.getboard())
+print(suboard)
+print(cmpCost(suboard))
+boardv.setboard(suboard)
+boardv.printboard()
