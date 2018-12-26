@@ -51,8 +51,6 @@ class board:
         return True
 
     def findNeighbor(self):
-        lowestCost = cmpCost(self.getboard())
-        bestBoard = self.getboard()
         neighbor = []
         for i in range(8):
             for j in range(8):
@@ -171,6 +169,8 @@ def cmpCost(boardV):
     return cost
 
 
+
+
 # search algorithms
 
 
@@ -213,8 +213,30 @@ def stochastic(boardv = None):
         tempboard.setboard(bestnibr)
     return tempboard.getboard()
 
+def randomRestart(iterationNum = None):
+    if(iterationNum == None):
+        iterationNum = True
+    lowestcost = 1000
+    bestboard = None
+    while(iterationNum):
+        tempboard=stepAscent()
+        print(tempboard)
+        tempCost = cmpCost(tempboard)
+        print(tempCost)
+        if(tempCost < lowestcost):
+            bestboard = tempboard
+            lowestcost = tempCost
+        if(lowestcost == 0):
+            break
+        """if(bestboard == None):
+            iterationNum +=1
+        iterationNum -=1"""
+    return bestboard
 
-stochastic()
+
+boardv = randomRestart()
+print(boardv)
+print(cmpCost(boardv))
 """myboard = board()
 print(myboard.getboard())
 print(myboard.isGoal())
