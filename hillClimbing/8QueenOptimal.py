@@ -91,9 +91,30 @@ def stepAscent(boardv=None):  # if boardv be None then randomly create a board f
         tempboard.setboard(bestnibr)
     return tempboard.getboard()
 
+def randomRestart(iterationNum=None):
+    if (iterationNum == None):
+        iterationNum = True
+    lowestcost = 1000
+    bestboard = None
+    while (iterationNum):
+        tempboard = stepAscent()
+        print(tempboard)
+        tempCost = cmpCost(tempboard)
+        print(tempCost)
+        if (tempCost < lowestcost):
+            bestboard = tempboard
+            lowestcost = tempCost
+        if (lowestcost == 0):
+            break
+        """if(bestboard == None):
+            iterationNum +=1
+        iterationNum -=1"""
+    return bestboard
+
+
 boardv = board()
 boardv.printboard()
-suboard=stepAscent(boardv.getboard())
+suboard=randomRestart()
 print(suboard)
 print(cmpCost(suboard))
 boardv.setboard(suboard)
