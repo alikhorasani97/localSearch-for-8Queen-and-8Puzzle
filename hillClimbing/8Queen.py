@@ -10,6 +10,7 @@ class board:
         if (initialBoard == None):
             self.boardvar = [["Empty" for j in range(8)] for i in range(8)]
             for i in range(8):
+                # if the random num exist in previos numbers,create another number its the reason i wrote while
                 while(True):
                     x = random.randint(0, 7)
                     y = random.randint(0, 7)

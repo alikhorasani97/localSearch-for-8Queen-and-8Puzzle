@@ -2,6 +2,10 @@
 
 import  random
 import  copy
+import time
+import math
+
+tmprtur = 40.0
 
 class problem:
 
@@ -81,9 +85,31 @@ def stepAscent(statev = None):
         curstate.setState(bestnibr)
     return curstate.getstate()
 
+def firstChoice(statev = None):
+    curstate = problem(statev)
+    print(curstate.getstate())
+    print(cmpCost(curstate.getstate()))
+    while(True):
+        neighbors = curstate.getsuccessors()
+        print(neighbors)
+        bestnibr = curstate.getstate()
+        lowescost = cmpCost(bestnibr)
+        while(neighbors.__len__() > 0):
+            rndNum = random.randint(0,neighbors.__len__()-1)
+            nibrstate = neighbors.pop(rndNum)
+            nibrcost = cmpCost(nibrstate)
+            if(lowescost > nibrcost):
+                bestnibr = nibrstate
+                lowescost = nibrcost
+                break
+        if (bestnibr == curstate.getstate()):
+            break
+        curstate.setState(bestnibr)
+    return curstate.getstate()
+
 def randomRestart(iterationNum = None):
     lowestcost = 1000
-    curstae = None
+    curstate = None
     while (True):
         if (iterationNum != None):
             if (iterationNum <= 0):
@@ -100,11 +126,38 @@ def randomRestart(iterationNum = None):
             break
     return curstate
 
+def simulateAnnealing(startTime,statev = None):
+    curstate = problem(statev)
+    lowestCost = cmpCost(curstate.getstate())
+    while(True):
+        if(lowestCost == 0):
+            break
+        neighbors = curstate.getsuccessors()
+        successorNum = random.randint(0,neighbors.__len__())
+        tempstate = neighbors.pop(successorNum)
+        tempCost = cmpCost(tempstate)
+        if(tempCost < lowestCost):
+            break
+        else:
+            chanceSelection = math.exp()
+
+    return 1
+
+def temperature(startTime):
+    curtime = time.time()
+    curtime -= startTime
+    (1/(math.log10(curtime)))
+
+sustate=firstChoice()
+print(sustate)
+print(cmpCost(sustate))
 
 
-sulstate=randomRestart(100)
-testprob=problem(sulstate)
-print(testprob.getstate())
-print(cmpCost(testprob.getstate()))
+# print(int(time.time()))
+# #simulateAnnealing(time.time())
+# sulstate=randomRestart(100)
+# testprob=problem(sulstate)
+# print(testprob.getstate())
+# print(cmpCost(testprob.getstate()))
 
 

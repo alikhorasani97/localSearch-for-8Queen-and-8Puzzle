@@ -91,6 +91,27 @@ def stepAscent(boardv=None):  # if boardv be None then randomly create a board f
         tempboard.setboard(bestnibr)
     return tempboard.getboard()
 
+def firstChoice(boardv=None):  # if boardv be None then randomly create a board for initial board
+    tempboard = board(boardv)  # intial the first board in init board func
+    print(tempboard.getboard())
+    print(cmpCost(tempboard.getboard()))
+    while (True):
+        neighbors = tempboard.findNeighbor()
+        bestnibr = tempboard.getboard()
+        lowestcost = cmpCost(tempboard.getboard())
+        while (neighbors.__len__() > 0):
+            rndnum=random.randint(0,neighbors.__len__()-1)
+            nibrboard = neighbors.pop(rndnum)
+            nibrcost = cmpCost(nibrboard)
+            if (nibrcost < lowestcost):
+                bestnibr = nibrboard
+                lowestcost = nibrcost
+                break
+        if (bestnibr == tempboard.getboard()):
+            break
+        tempboard.setboard(bestnibr)
+    return tempboard.getboard()
+
 def randomRestart(iterationNum=None):
     if (iterationNum == None):
         iterationNum = True
@@ -112,10 +133,9 @@ def randomRestart(iterationNum=None):
     return bestboard
 
 
-boardv = board()
-boardv.printboard()
-suboard=randomRestart()
+
+suboard=firstChoice()
 print(suboard)
 print(cmpCost(suboard))
-boardv.setboard(suboard)
+boardv = board(suboard)
 boardv.printboard()
