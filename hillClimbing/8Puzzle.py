@@ -81,12 +81,29 @@ def stepAscent(statev = None):
         curstate.setState(bestnibr)
     return curstate.getstate()
 
+def randomRestart(iterationNum = None):
+    lowestcost = 1000
+    curstae = None
+    while (True):
+        if (iterationNum != None):
+            if (iterationNum <= 0):
+                break
+            iterationNum -= 1
+        tempstate = stepAscent()
+        print(tempstate)
+        tempCost = cmpCost(tempstate)
+        print(tempCost)
+        if (tempCost < lowestcost):
+            curstate = tempstate
+            lowestcost = tempCost
+        if (lowestcost == 0):
+            break
+    return curstate
 
-testprob = problem()
-print(testprob.getstate())
-print(cmpCost(testprob.getstate()))
-sulstate=stepAscent(testprob.getstate())
-testprob.setState(sulstate)
+
+
+sulstate=randomRestart(100)
+testprob=problem(sulstate)
 print(testprob.getstate())
 print(cmpCost(testprob.getstate()))
 
