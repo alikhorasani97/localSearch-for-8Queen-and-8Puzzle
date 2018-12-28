@@ -15,7 +15,7 @@
         <entry file="file://$PROJECT_DIR$/8Puzzle.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="239">
-              <caret line="152" column="23" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
+              <caret line="152" column="23" lean-forward="true" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
               <folding>
                 <element signature="e#26#40#0" expanded="true" />
               </folding>
@@ -63,7 +63,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="30" />
     <option name="y" value="60" />
     <option name="width" value="3780" />
@@ -246,7 +246,7 @@
     <entry file="file://$PROJECT_DIR$/8Puzzle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
-          <caret line="152" column="23" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
+          <caret line="152" column="23" lean-forward="true" selection-start-line="152" selection-start-column="23" selection-end-line="152" selection-end-column="23" />
           <folding>
             <element signature="e#26#40#0" expanded="true" />
           </folding>
